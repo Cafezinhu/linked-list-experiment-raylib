@@ -17,7 +17,7 @@
 
 const int screenWidth = 800;
 const int screenHeight = 600;
-const int PLAYER_SPEED = 300;
+const int PLAYER_SPEED = 400;
 const int BULLET_SPEED = 300;
 
 Texture bullet_texture;
@@ -150,13 +150,14 @@ void UpdateDrawFrame(struct Entity *first_entity) {
     if (entity->dead) {
       printf("Killing entity\n");
       struct Entity *next_entity = entity->next_entity;
+      struct Entity *dead_entity = entity;
       if (first_entity != NULL && previous_entity != NULL) {
         (*previous_entity).next_entity = entity->next_entity;
         entity = entity->next_entity;
       } else {
         first_entity = next_entity;
       }
-      free(entity);
+      free(dead_entity);
     } else {
       entity->Update(entity);
       previous_entity = entity;
